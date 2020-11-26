@@ -14,16 +14,14 @@ const CustomRoute = ({ component: Component, ...rest }) => (
 
 const SwitchRoute = (
   <Switch>
-    {routes.map((prop, key) => {
-      return (
-        <CustomRoute
-          path={prop.path}
-          component={prop.component}
-          exact
-          key={key}
-        />
-      );
-    })}
+    {routes.map((prop, key) => (
+      <CustomRoute
+        path={prop.path}
+        component={prop.component}
+        exact
+        key={key}
+      />
+    ))}
   </Switch>
 );
 
