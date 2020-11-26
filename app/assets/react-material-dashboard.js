@@ -59,7 +59,6 @@ const container = {
   paddingLeft: '15px',
   marginRight: 'auto',
   marginLeft: 'auto',
-  backgroundColor: 'white',
 };
 
 const defaultFont = {
