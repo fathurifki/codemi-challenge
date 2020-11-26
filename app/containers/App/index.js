@@ -14,6 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
+import Core from '../../components/layouts/Core';
 
 export default function App() {
   return (

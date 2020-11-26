@@ -16,9 +16,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
-// Import root app
-import App from 'containers/App';
-
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
 
@@ -32,6 +29,7 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+import Core from './components/layouts/Core';
 
 // Create redux store with history
 const initialState = {};
@@ -43,7 +41,7 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <App />
+          <Core />
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,
