@@ -7,7 +7,7 @@ import {
   LOAD_CONFIRMED_BY_REGION_API,
   SET_CONFIRMED_BY_REGION_API,
   SET_INPUT,
-  LOAD_API_ERROR
+  LOAD_API_ERROR,
 } from './constants';
 
 export function loadApi() {
