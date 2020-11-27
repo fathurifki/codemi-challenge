@@ -14,13 +14,22 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-// import Logo from 'src/components/Logo';
+import image from '../../images';
 
 const useStyles = makeStyles(() => ({
-  root: {},
+  root: {
+    backgroundColor: 'white',
+    WebkitBoxShadow: '2px 7px 5px 0px rgba(0,0,0,0.09)',
+    MozBoxShadow: '2px 7px 5px 0px rgba(0,0,0,0.09)',
+    boxShadow: '2px 7px 5px 0px rgba(0,0,0,0.09)',
+    inset: '10px',
+  },
   avatar: {
     width: 60,
     height: 60,
+  },
+  coloring: {
+    color: 'gray',
   },
 }));
 
@@ -31,11 +40,14 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
       <Toolbar>
-        <RouterLink to="/">{/* <Logo /> */}</RouterLink>
+        <RouterLink to="/">
+          <img src={image.logo} alt="iconLogo" height={30} />
+        </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
           <IconButton color="inherit">
             <Badge
+              className={clsx(classes.coloring, className)}
               badgeContent={notifications.length}
               color="primary"
               variant="dot"
@@ -43,12 +55,19 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton
+            className={clsx(classes.coloring, className)}
+            color="inherit"
+          >
             <InputIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton color="inherit" onClick={onMobileNavOpen}>
+          <IconButton
+            className={clsx(classes.coloring, className)}
+            color="inherit"
+            onClick={onMobileNavOpen}
+          >
             <MenuIcon />
           </IconButton>
         </Hidden>

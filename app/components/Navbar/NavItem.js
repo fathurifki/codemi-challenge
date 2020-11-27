@@ -40,21 +40,23 @@ const NavItem = ({ className, href, icon: Icon, title, ...rest }) => {
   const classes = useStyles();
 
   return (
-    <ListItem
-      className={clsx(classes.item, className)}
-      disableGutters
-      {...rest}
-    >
-      <Button
-        activeClassName={classes.active}
-        className={classes.button}
-        component={RouterLink}
-        to={href}
+    <React.Fragment>
+      <ListItem
+        className={clsx(classes.item, className)}
+        disableGutters
+        {...rest}
       >
-        {Icon && <Icon className={classes.icon} size="20" />}
-        <span className={classes.title}>{title}</span>
-      </Button>
-    </ListItem>
+        <Button
+          activeClassName={classes.active}
+          className={classes.button}
+          component={RouterLink}
+          to={href}
+        >
+          {Icon && <Icon className={classes.icon} size="20" />}
+          <span className={classes.title}>{title}</span>
+        </Button>
+      </ListItem>
+    </React.Fragment>
   );
 };
 

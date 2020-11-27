@@ -25,6 +25,7 @@ import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import 'file-loader?name=.htaccess!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
+import { Switch, Redirect, Router, Link, Route } from 'react-router-dom';
 import configureStore from './configureStore';
 
 // Import i18n messages
@@ -41,7 +42,10 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <Core />
+          <Switch>
+            <Route path="/dashboard" component={Core} />
+            <Redirect from="/" to="/dashboard/" />
+          </Switch>
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,
