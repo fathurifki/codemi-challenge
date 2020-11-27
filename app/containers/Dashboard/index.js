@@ -1,6 +1,8 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 import React, { memo } from 'react';
-import Chart from 'react-apexcharts';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Box, makeStyles, createStyles } from '@material-ui/core';
@@ -26,6 +28,9 @@ import GridContainer from '../../components/Grid/GridContainer';
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
+import numberWithCommas from '../../utils/formatNumber';
+import ChartBar from '../../components/Chart/CharBar';
+import ChartPie from '../../components/Chart/ChartPie';
 
 const key = 'dashboard';
 
@@ -49,7 +54,7 @@ const useStyles = makeStyles(theme =>
       backgroundColor: '#F8F8F8',
     },
     cardTitle: {
-      fontSize: 12,
+      fontSize: 14,
       marginLeft: 10,
       color: '#757575',
     },
@@ -68,7 +73,6 @@ export function Dashboard({
   confirmedData,
   loadConfirmedRegionApi,
   onChangeInput,
-  inputData,
   confirmedRegionData,
 }) {
   useInjectReducer({ key, reducer });
@@ -105,148 +109,26 @@ export function Dashboard({
           justifyContent: 'space-between',
         }}
       >
-        <p>{val.countryRegion}</p>
-        <p>{val.active}</p>
+        <p
+          style={{
+            fontSize: 14,
+            color: 'black',
+            fontWeight: 'bold',
+          }}
+        >
+          {val.countryRegion}
+        </p>
+        <p
+          style={{
+            fontSize: 14,
+            color: 'black',
+            fontWeight: 'bold',
+          }}
+        >
+          {numberWithCommas(val.active)}
+        </p>
       </Box>
     ));
-
-  const optionline = {
-    options: {
-      chart: {
-        type: 'pie',
-        toolbar: {
-          show: false,
-        },
-      },
-      xaxis: {
-        categories: codeCountry,
-        position: 'top',
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-        crosshairs: {
-          fill: {
-            type: 'gradient',
-            gradient: {
-              colorFrom: '#D8E3F0',
-              colorTo: '#BED1E6',
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5,
-            },
-          },
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          dataLabels: {
-            enabled: false,
-            position: 'bottom',
-          },
-        },
-      },
-      yaxis: {
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      labels: Object.keys(totalStats),
-      dataLabels: {
-        enabled: true,
-        dropShadow: {
-          enabled: true,
-          left: 2,
-          top: 2,
-          opacity: 0.5,
-        },
-      },
-    },
-    series: Object.values(totalStats),
-  };
-
-  const option = {
-    options: {
-      chart: {
-        type: 'bar',
-        toolbar: {
-          show: false,
-        },
-      },
-      xaxis: {
-        categories: codeCountry,
-        position: 'top',
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-        crosshairs: {
-          fill: {
-            type: 'gradient',
-            gradient: {
-              colorFrom: '#D8E3F0',
-              colorTo: '#BED1E6',
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5,
-            },
-          },
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          dataLabels: {
-            enabled: false,
-            position: 'bottom',
-          },
-        },
-      },
-      yaxis: {
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      dataLabels: {
-        enabled: true,
-        dropShadow: {
-          enabled: true,
-          left: 2,
-          top: 2,
-          opacity: 0.5,
-        },
-      },
-    },
-    series: [
-      {
-        name: 'Confirmed',
-        data: compiledResult,
-      },
-    ],
-  };
 
   const cardInfo = (color, title, value) => (
     <Box
@@ -284,6 +166,7 @@ export function Dashboard({
           <GridItem xs={12} sm={12} md={8}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
+                <h3>Global Case COVID-19</h3>
                 <GridContainer
                   style={{ display: 'flex', justifyContent: 'center' }}
                 >
@@ -291,18 +174,22 @@ export function Dashboard({
                     {cardInfo(
                       '#FFA500',
                       'Confirmed',
-                      data && data.confirmed.value,
+                      numberWithCommas(data && data.confirmed.value),
                     )}
                   </GridItem>
                   <GridItem xs={12} sm={3} md={3}>
                     {cardInfo(
                       '#32CD32',
                       'Recovered',
-                      data && data.recovered.value,
+                      numberWithCommas(data && data.recovered.value),
                     )}
                   </GridItem>
                   <GridItem xs={12} sm={3} md={3}>
-                    {cardInfo('#DC143C', 'Deaths', data && data.deaths.value)}
+                    {cardInfo(
+                      '#DC143C',
+                      'Deaths',
+                      numberWithCommas(data && data.deaths.value),
+                    )}
                   </GridItem>
                 </GridContainer>
               </GridItem>
@@ -314,16 +201,15 @@ export function Dashboard({
                         World Case Diagram
                       </h4>
                     </div>
-                    <Chart
-                      options={optionline.options}
-                      series={optionline.series}
-                      type="pie"
-                      width="500"
+                    <ChartPie
+                      codeCountry={codeCountry}
+                      totalStats={totalStats}
                     />
                   </CardBody>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={12}>
+                <h3>Indonesia Case COVID-19</h3>
                 <Card>
                   <CardBody>
                     <div>
@@ -365,24 +251,30 @@ export function Dashboard({
                         {cardInfo(
                           '#FFA500',
                           'Confirmed',
-                          confirmedRegionData &&
-                            confirmedRegionData.confirmed.value,
+                          numberWithCommas(
+                            confirmedRegionData &&
+                              confirmedRegionData.confirmed.value,
+                          ),
                         )}
                       </GridItem>
                       <GridItem xs={12} sm={3} md={3}>
                         {cardInfo(
                           '#32CD32',
                           'Recovered',
-                          confirmedRegionData &&
-                            confirmedRegionData.recovered.value,
+                          numberWithCommas(
+                            confirmedRegionData &&
+                              confirmedRegionData.recovered.value,
+                          ),
                         )}
                       </GridItem>
                       <GridItem xs={12} sm={3} md={3}>
                         {cardInfo(
                           '#DC143C',
                           'Death',
-                          confirmedRegionData &&
-                            confirmedRegionData.deaths.value,
+                          numberWithCommas(
+                            confirmedRegionData &&
+                              confirmedRegionData.deaths.value,
+                          ),
                         )}
                       </GridItem>
                     </GridContainer>
@@ -395,7 +287,7 @@ export function Dashboard({
             <Card>
               <CardBody>
                 <div>
-                  <h4 className={classes.cardTitle}>Most World Infected</h4>
+                  <h4 className={classes.cardTitle}>Most Country Infected</h4>
                   <hr style={{ marginLeft: 10, marginRight: 10 }} />
                 </div>
                 <p style={{ marginLeft: 12 }}>
@@ -415,17 +307,22 @@ export function Dashboard({
                     alignItems: 'center',
                   }}
                 >
-                  <Chart
-                    options={option.options}
-                    series={option.series}
-                    type="bar"
-                    width="325"
+                  <ChartBar
+                    compiledResult={compiledResult}
+                    categoriesData={codeCountry}
                   />
                 </GridItem>
-                <div>
-                  <h4 className={classes.cardTitle}>Graph Bar</h4>
-                  <hr style={{ marginLeft: 10, marginRight: 10 }} />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  <h4>Country</h4>
+                  <h4>Count</h4>
                 </div>
+                <hr style={{ marginLeft: 10, marginRight: 10 }} />
                 <GridItem xs={12} sm={12} md={12}>
                   <div>{renderComponent}</div>
                 </GridItem>
@@ -464,6 +361,16 @@ const withConnect = connect(
   mapStateProps,
   mapDispatchToProps,
 );
+
+Dashboard.propTypes = {
+  loadApi: PropTypes.func,
+  data: PropTypes.object,
+  loadConfirmedApi: PropTypes.func,
+  loadConfirmedRegionApi: PropTypes.func,
+  confirmedData: PropTypes.array,
+  onChangeInput: PropTypes.func,
+  confirmedRegionData: PropTypes.array,
+};
 
 export default compose(
   withConnect,

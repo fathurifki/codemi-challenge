@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { call, put, takeLatest, all, fork, select } from 'redux-saga/effects';
 import {
   LOAD_API,
@@ -37,7 +38,7 @@ export function* handleConfirmedRequest() {
   try {
     const result = yield call(request, requestUrl);
     const dataResult =
-      result && result.filter((val, i) => i < showRow).map((data, i) => data);
+      result && result.filter((val, i) => i < showRow).map((data, _i) => data);
     yield put(setConfirmedData(dataResult));
   } catch (error) {
     yield put(setApiError(error));

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 
@@ -5,7 +6,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     grid: {
       margin: '0 -15px !important',
