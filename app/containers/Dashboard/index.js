@@ -281,7 +281,7 @@ export function Dashboard({
                       <GridItem xs={12} sm={3} md={3}>
                         {cardInfo(
                           '#DC143C',
-                          'Death',
+                          'Deaths',
                           numberWithCommas(
                             confirmedRegionData &&
                               confirmedRegionData.deaths.value,
