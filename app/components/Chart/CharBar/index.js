@@ -12,6 +12,7 @@ const ChartBar = ({ categoriesData, compiledResult }) => {
           show: false,
         },
       },
+      colors: ['#FFFFFF'],
       xaxis: {
         categories: categoriesData,
         position: 'top',

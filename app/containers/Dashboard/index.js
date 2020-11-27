@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme =>
     cardTitle: {
       fontSize: 14,
       marginLeft: 10,
-      color: '#757575',
+      color: 'white',
     },
     cardTitleBig: {
       fontSize: 18,
@@ -112,7 +112,7 @@ export function Dashboard({
         <p
           style={{
             fontSize: 14,
-            color: 'black',
+            color: 'white',
             fontWeight: 'bold',
           }}
         >
@@ -121,7 +121,7 @@ export function Dashboard({
         <p
           style={{
             fontSize: 14,
-            color: 'black',
+            color: 'white',
             fontWeight: 'bold',
           }}
         >
@@ -166,7 +166,7 @@ export function Dashboard({
           <GridItem xs={12} sm={12} md={8}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
-                <h3>Global Case COVID-19</h3>
+                <h3>Global Cases COVID-19</h3>
                 <GridContainer
                   style={{ display: 'flex', justifyContent: 'center' }}
                 >
@@ -198,23 +198,34 @@ export function Dashboard({
                   <CardBody>
                     <div>
                       <h4 className={classes.cardTitleBig}>
-                        World Case Diagram
+                        World Cases Diagram
                       </h4>
                     </div>
-                    <ChartPie
-                      codeCountry={codeCountry}
-                      totalStats={totalStats}
-                    />
+                    <GridItem
+                      xs={12}
+                      sm={12}
+                      md={12}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <ChartPie
+                        codeCountry={codeCountry}
+                        totalStats={totalStats}
+                      />
+                    </GridItem>
                   </CardBody>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={12}>
-                <h3>Indonesia Case COVID-19</h3>
+                <h3>Indonesia Cases COVID-19</h3>
                 <Card>
                   <CardBody>
                     <div>
                       <h4 className={classes.cardTitleBig}>
-                        Indonesia Case Data
+                        Indonesia Cases Data
                       </h4>
                     </div>
                     <GridContainer
@@ -284,13 +295,14 @@ export function Dashboard({
             </GridContainer>
           </GridItem>
           <GridItem xs={12} sm={12} md={3}>
-            <Card>
+            <Card style={{ backgroundColor: 'rgba(73,155,234,1)' }}>
               <CardBody>
                 <div>
-                  <h4 className={classes.cardTitle}>Most Country Infected</h4>
-                  <hr style={{ marginLeft: 10, marginRight: 10 }} />
+                  <h4 className={classes.cardTitle}>
+                    Most Country COVID-19 Cases
+                  </h4>
                 </div>
-                <p style={{ marginLeft: 12 }}>
+                <p style={{ marginLeft: 12, fontSize: 25, color: 'white' }}>
                   {confirmedData && confirmedData[0].countryRegion}
                 </p>
                 <div>
@@ -319,8 +331,8 @@ export function Dashboard({
                     justifyContent: 'space-around',
                   }}
                 >
-                  <h4>Country</h4>
-                  <h4>Count</h4>
+                  <h4 style={{ color: 'white' }}>Country</h4>
+                  <h4 style={{ color: 'white' }}>Count</h4>
                 </div>
                 <hr style={{ marginLeft: 10, marginRight: 10 }} />
                 <GridItem xs={12} sm={12} md={12}>
